@@ -45,53 +45,107 @@ app.Activities = (function () {
             },
             User: function () {
 
-                var userId = this.get('UserId');
+                //var userId = this.get('UserId');
 
-                var user = $.grep(app.Users.users(), function (e) {
-                    return e.Id === userId;
-                })[0];
+                //var user = $.grep(app.Users.users(), function (e) {
+                //    return e.Id === userId;
+                //})[0];
 
-                return user ? {
-                    DisplayName: user.DisplayName,
-                    PictureUrl: app.helper.resolveProfilePictureUrl(user.Picture)
-                } : {
-                    DisplayName: 'Anonymous',
-                    PictureUrl: app.helper.resolveProfilePictureUrl()
+                //return user ? {
+                //    DisplayName: user.DisplayName,
+                //    PictureUrl: app.helper.resolveProfilePictureUrl(user.Picture)
+                //} : {
+                //    DisplayName: 'Anonymous',
+                //    PictureUrl: app.helper.resolveProfilePictureUrl()
+                //};
+
+                return {
+                    DisplayName: 'Anonymous'
                 };
             },
             isVisible: function () {
-                var currentUserId = app.Users.currentUser.data.Id;
-                var userId = this.get('UserId');
+                //var currentUserId = app.Users.currentUser.data.Id;
+                //var userId = this.get('UserId');
 
-                return currentUserId === userId;
+                //return currentUserId === userId;
+                return true;
             }
         };
 
-        // Activities data source. The Backend Services dialect of the Kendo UI DataSource component
-        // supports filtering, sorting, paging, and CRUD operations.
-        var activitiesDataSource = new kendo.data.DataSource({
-            type: 'everlive',
-            schema: {
-                model: activityModel
-            },
-            transport: {
-                // Required by Backend Services
-                typeName: 'Activities'
-            },
-            change: function (e) {
+        var show = function () {
+            //// Activities data source. The Backend Services dialect of the Kendo UI DataSource component
+            //// supports filtering, sorting, paging, and CRUD operations.
+            //var activitiesDataSource = new kendo.data.DataSource({
+            //    //type: 'everlive',
+            //    schema: {
+            //        model: activityModel
+            //    },
+            //    transport: {
+            //        // Required by Backend Services
+            //        typeName: 'Activities'
+            //    },
+            //    //change: function (e) {
+            //    //    app.mobileApp.hideLoading();
+            //    //    debugger;
+            //    //    if (e.items && e.items.length > 0) {
+            //    //        $('#no-activities-span').hide();
+            //    //    } else {
+            //    //        $('#no-activities-span').show();
+            //    //    }
+            //    //},
+            //    sort: { field: 'CreatedAt', dir: 'desc' }
+            //});
 
-                if (e.items && e.items.length > 0) {
-                    $('#no-activities-span').hide();
-                } else {
-                    $('#no-activities-span').show();
-                }
-            },
-            sort: { field: 'CreatedAt', dir: 'desc' }
-        });
+
+            var data = app.everlive.data('Activities');
+            var query = new Everlive.Query();
+            data.get(query)
+                .then(function (data) {
+                    if (data.result.length > 0) {
+                        var dataSource = new kendo.data.DataSource({
+                            transport: {
+                                read: function (options) {
+                                    try {
+                                        options.success(data.result);
+                                    } catch (err) {
+                                        console.log(err);
+                                    }
+                                }
+                            },
+                            error: function (e) {
+                                alert(JSON.stringify(error));
+                            },
+                            schema: { // describe the result format
+                                model: activityModel
+                            }
+                        });
+
+                        $("#activities-listview").kendoMobileListView({
+                            dataSource: dataSource,
+                            template: $("#activityTemplate").html(),
+                            //appendOnRefresh: true
+                        });
+
+
+                    }
+                },
+                function (error) {
+                    alert(JSON.stringify(error));
+                });
+
+            debugger;
+
+            //return {
+            //    activities: activitiesDataSource
+            //};
+
+
+
+        }
 
         return {
-            activities: activitiesDataSource
-        };
+            show: show
+        }
 
     }());
 
@@ -120,10 +174,19 @@ app.Activities = (function () {
             });
         };
 
+        var currentDate = function () {
+            var a = moment();
+            return a.format("Do MMMM YYYY"); // "14th February  2010"
+        }
+        var show = function () {
+            activitiesModel.show();
+        };
         return {
-            activities: activitiesModel.activities,
+            //activities: activitiesModel.activities,
             activitySelected: activitySelected,
-            logout: logout
+            logout: logout,
+            currentDate: currentDate(),
+            show: show,
         };
 
     }());
