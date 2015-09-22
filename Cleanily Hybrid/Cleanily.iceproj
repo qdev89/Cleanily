@@ -99,7 +99,7 @@
     <Content Include="cordova.android.js" />
     <Content Include="cordova.ios.js" />
     <Content Include="cordova.wp8.js" />
-    <Content Include="data\customers.json" />
+    <Content Include="data\customers.js" />
     <Content Include="index.html">
       <SubType>Content</SubType>
     </Content>

@@ -13,7 +13,7 @@ app.Activity = (function () {
     var activityViewModel = (function () {
 
         var activityUid, customer,
-            activity= {};
+            activity = {};
 
         var init = function (e) {
         };
@@ -35,10 +35,9 @@ app.Activity = (function () {
 
             activityUid = e.view.params.uid;
 
-            $.getJSON('/data/customers.json', function (data) {
-                activity.customer = data[activityUid - 1];
-                kendo.bind(e.view.element, activity, kendo.mobile.ui);
-            });
+
+            activity.customer = customers[activityUid - 1];
+            kendo.bind(e.view.element, activity, kendo.mobile.ui);
 
         };
 

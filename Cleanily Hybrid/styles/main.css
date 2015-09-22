@@ -274,8 +274,10 @@ input[type='week'] {
 #cleanilyApp .logo {
     width: 127px;
     height: 119px;
-    text-indent: -9999px;
-    /*background: transparent url(images/logo.png) no-repeat 0 0;*/
+    background: transparent url(images/logo.png) ;
+
+     background-size: 127px 119px;
+    background-repeat: no-repeat;
     overflow: hidden;
 }
 

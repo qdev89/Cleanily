@@ -110,7 +110,9 @@ app.Activities = (function () {
             //        function (error) {
             //            alert(JSON.stringify(error));
             //        });
-            $.getJSON('/data/customers.json', function (data) {
+
+
+            //$.getJSON('/data/customers.json', function (data) {
                 //var dataSource = new kendo.data.DataSource({
                 //    transport: {
                 //        read: function (options) {
@@ -130,12 +132,12 @@ app.Activities = (function () {
                 //    //    model: activityModel
                 //    //}
                 //});
-                $("#activities-listview").kendoMobileListView({
-                    dataSource: data,
-                    template: $("#activityTemplate").html()
-                });
+              
+            //});
+            $("#activities-listview").kendoMobileListView({
+                dataSource: customers,
+                template: $("#activityTemplate").html()
             });
-           
         }
         return {
             show: show
