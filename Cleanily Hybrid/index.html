@@ -35,7 +35,8 @@
     <div data-role="view" id="welcome" data-layout="default" class="welcome-scrn form-view" data-model="app.Login" data-init="app.Login.init" data-show="app.Login.show">
         <div data-role="header"></div>
         <div align="center" style="margin-top: 200px">
-            <h2><small>Cleaning app</small></h2>
+            <img class="logo" src="/styles/images/logo.png"/>
+              <h2><small>Cleaning app</small></h2>
             <form id="login-form">
                 <p>
                     <input type="text" id="loginUsername" placeholder="username" required validationMessage="Username is required!" class="login-info">
@@ -57,9 +58,9 @@
             <p id="login" data-role="touch" data-bind="events: { tap: login }">
                 <a data-role="button" class="btn btn-login">Login</a>
             </p>
-            <p id="register" data-role="touch">
+            <!--<p id="register" data-role="touch">
                 <a data-role="button" href="views/signupView.html" class="btn btn-login">Sign up</a>
-            </p>
+            </p>-->
             <!--
             <ol class="group-wrp">
              <li>

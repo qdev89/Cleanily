@@ -11,24 +11,36 @@
 
     <!--<ul id="activities-listview" data-style="inset" data-role="listview" data-template="activityTemplate" data-bind="source: activities"></ul>-->
     <ul id="activities-listview" data-style="inset" data-role="listview"></ul>
-    <!--<p id="no-activities-span" hidden="hidden" class="no-items-msg">
-        <b>You have no posts yet.</b><br><br>Tap on the plus sign and share what's on your mind.
-    </p>-->
+    <p id="no-activities-span" hidden="hidden" class="no-items-msg">
+        <b>You have no activity yet.</b><br><br>Tap on the Go! and create new checklist.
+    </p>
+    <p>
+        <span style="font-size: larger">Create New Checklist</span>
+        <span>
+            <select style="width: auto !important" id="select-clean">
+                <option value="deep">Deep cleaning</option>
+                <option value="spring">Spring cleaning</option>
+                <option value="regular">Regular cleaning</option>
+                <option value="one">One off cleaning</option>
+            </select>
+        </span>
+        <span onclick="app.Activities.activitySelected(this)" style="width: 30%">
+            <a data-role="button" class="btn" style="padding: 0.8em!important">Go!</a>
+        </span>
+    </p>
+
 </div>
 
 <!-- Activities ListView Template -->
 <script type="text/x-kendo-template" id="activityTemplate">
-    <div data-role="touch" data-bind="events: { tap: activitySelected }" class="cf">
-        <!--<div class="user-avatar">
-            <img data-bind="attr:{src: User().PictureUrl}" alt="#: User().DisplayName #">
-        </div>-->
+    <div onclick="app.Activities.activitySelected(#: Id#)" class="activity-item">
+        <div class="activity-time">
+            <span class="activity-time-value">#: Time#</span>
+        </div>
+
         <div class="activity-content">
-            <!--<h2 class="person-name">#: User().DisplayName #</h2>-->
-            <!--<div data-bind="visible: Picture">
-                <img id="picture" class="picture" data-bind="attr:{src: PictureUrl()}" width="100%">
-            </div>-->
-            <a class="user-share-txt">#: Text #</a>
-            <span class="time-span">#: CreatedAtFormatted() #</span>
+            <h2 class="person-name">#: CustomerName #</h2>
+            <a class="user-share-txt">#: Address #</a>
         </div>
     </div>
 </script>

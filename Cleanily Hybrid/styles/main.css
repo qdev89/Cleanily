@@ -185,6 +185,12 @@ input[type='week'] {
     width: 40%;
 }
 
+#cleanilyApp .activity-item {
+    border: 2px solid #a1a1a1;
+    padding: 10px 40px;
+    border-radius: 25px;
+}
+
 #cleanilyApp .signup-view .btn-signup,
 #cleanilyApp .btn-delete {
     display: block;
@@ -265,20 +271,19 @@ input[type='week'] {
     margin-top: 1.5em;
 }
 
-#cleanilyApp .app-name {
+#cleanilyApp .logo {
     width: 127px;
     height: 119px;
-    margin: 1.5em auto;
     text-indent: -9999px;
-    background: transparent url(images/logo-friends.png) no-repeat 0 0;
+    /*background: transparent url(images/logo.png) no-repeat 0 0;*/
     overflow: hidden;
 }
 
-    #cleanilyApp .app-name small {
-        display: block;
-        font-weight: 400;
-        font-size: 1.15rem;
-    }
+#cleanilyApp .app-name small {
+    display: block;
+    font-weight: 400;
+    font-size: 1.15rem;
+}
 
 #cleanilyApp .welcome-scrn .group-wrp {
     margin: 0 2em;
@@ -486,11 +491,27 @@ input[type='week'] {
     width: 50px;
 }
 
-    #cleanilyApp .user-avatar img {
-        width: 50px;
-        height: 50px;
-        border-radius: 25px;
-    }
+#cleanilyApp .activity-time {
+    float: left;
+    width: 100px;
+    display: table;
+    height: 75px;
+}
+
+#cleanilyApp .activity-time .activity-time-value {
+    font-size: x-large;
+    font-weight: bold;
+    color: #1976d2;
+    vertical-align:middle;
+    display: table-cell;
+    margin-right: 10px;
+}
+
+#cleanilyApp .user-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
 
 #cleanilyApp .activity-content,
 #cleanilyApp .comment-content {
@@ -511,7 +532,6 @@ input[type='week'] {
 #cleanilyApp .person-name {
     display: block;
     margin: 0 0 .5em;
-    color: #e91e63;
     font-size: 1.1rem;
 }
 
