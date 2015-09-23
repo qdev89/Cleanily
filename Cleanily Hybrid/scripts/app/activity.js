@@ -41,11 +41,11 @@ app.Activity = (function () {
 
             //create dataSource
             var areaTypeList = new kendo.data.DataSource({
-                    data: [
-                    { id: 1, name: "Kitchen" },
-                    { id: 2, name: "Bathroom" },
-                    { id: 3, name: "Bedroom" },
-                    { id: 4, name: "Custom Area Type" }
+                data: [
+                { id: 1, name: "Kitchen" },
+                { id: 2, name: "Bathroom" },
+                { id: 3, name: "Bedroom" },
+                { id: 4, name: "Custom Area Type" }
                 ],
                 schema: {
                     model: {
@@ -99,17 +99,27 @@ app.Activity = (function () {
             $("#areaTypeDropList").kendoDropTarget({
                 dragenter: addStyling, //add visual indication
                 dragleave: resetStyling, //remove the visual indication
+                drop: function (e) { //apply changes to the data after an item is dropped
+                    debugger;
+                    var draggableElement = e.draggable.currentTarget.parent(),
+                    dataItem = areaTypeList.getByUid(draggableElement.data("uid")); //find the corresponding dataItem by uid
+                    console.log(dataItem);
+
+                    areaTypeList.remove(dataItem); //remove the item from ListA
+                    areaTypeDropList.add(dataItem); //add the item to ListB
+
+                    resetStyling.call(this); //reset visual dropTarget indication that was added on dragenter
+                }
             });
 
             //create a draggable for the parent container
             $("#areaTypeList").kendoDraggable({
                 filter: ".item", //specify which items will be draggable
                 dragstart: function (e) {
-                    //debugger;
-                    var draggedElement = e.currentTarget, //get the DOM element that is being dragged
-                        dataItem = areaTypeList.getByUid(draggedElement.data("uid")); //get corresponding dataItem from the DataSource instance
+                    //var draggedElement = e.currentTarget.parent(); //get the DOM element that is being dragged
+                    //var dataItem = areaTypeList.getByUid(draggedElement.data("uid")); //get corresponding dataItem from the DataSource instance
 
-                    console.log(dataItem);
+                    //console.log(dataItem);
                 },
                 hint: function (element) { //create a UI hint, the `element` argument is the dragged item
                     return element.clone().css({
