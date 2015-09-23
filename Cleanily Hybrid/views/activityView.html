@@ -8,18 +8,43 @@
             <a class="nav-button nav-button-icon nav-button-delete hide-text" data-align="right" data-role="button" data-bind="visible: isVisible" data-click="app.Activity.remove">Delete</a>
         </div>-->
         <p>
-            <span  style="font-size: larger">Regular cleaning checklist for:</span>
+            <span style="font-size: larger">Regular cleaning checklist for:</span>
             <span style="font-size: x-large; font-weight: Bold" data-bind="text: customer.CustomerName"></span>
         </p>
         <p>
-            <input type="text" readonly="readonly" data-bind="value: customer.Address" style="width: 75%"/>
+            <input type="text" readonly="readonly" data-bind="value: customer.Address" style="width: 75%" />
         </p>
         <p>
             <span style="font-size: larger">Area Type</span>
         </p>
+        <div id="areaTypeList"></div>
+        <div id="areaTypeDropList"></div>
+
     </div>
 </div>
 
+<style>
+    #areaTypeDropList {
+        width: 300px;
+        height: 280px;
+        border: 3px solid black;
+        border-radius: 3px;
+    }
+
+    #areaTypeList {
+        width: 300px;
+        /*border: 3px solid black;
+        border-radius: 3px;*/
+    }
+
+    .item {
+        /*margin: 5px;*/
+        padding: 5px;
+        text-align: center;
+        border: 2px solid #000000;
+        border-radius: 3px;
+    }
+</style>
 <!-- Comments Template -->
 <script type="text/x-kendo-template" id="commentsTemplate">
     <div class="user-avatar">

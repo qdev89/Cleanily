@@ -150,7 +150,6 @@ app.Activities = (function () {
 
         // Navigate to activityView When some activity is selected
         var activitySelected = function (e) {
-            debugger;
             app.mobileApp.navigate('views/activityView.html?uid=' + e);
         };
         // Navigate to app home

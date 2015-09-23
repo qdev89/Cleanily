@@ -447,12 +447,7 @@ input[type='week'] {
 
 #cleanilyApp .activities-view .km-list > li,
 #cleanilyApp .activity-view .km-list > li {
-    padding: .75em 0 1em;
-    border-width: 0;
-    color: #4d4d4d;
-    background-color: #fff;
-    box-shadow: none;
-    overflow: visible;
+   
 }
 
 #cleanilyApp .activities-view .km-list > li {
@@ -462,14 +457,14 @@ input[type='week'] {
 
     #cleanilyApp .activities-view .km-list > li::before,
     #cleanilyApp .activity-view .km-list > li::before {
-        content: '';
+       /* content: '';
         position: absolute;
         top: 0;
         right: 0;
         left: 4.5em;
         display: block;
         height: 1px;
-        border-bottom: 1px solid #eaeced;
+        border-bottom: 1px solid #eaeced;*/
     }
 
     #cleanilyApp .activities-view .km-list > li:first-child::before {
@@ -689,4 +684,9 @@ input[type='week'] {
     #cleanilyApp .welcome-scrn .group-wrp .oauth .btn-adfs {
         background-image: url(images/logo-adfs@2x.png);
     }
+}
+
+/*Override*/
+.km-flat .km-list>li {
+    border-style: none;
 }
