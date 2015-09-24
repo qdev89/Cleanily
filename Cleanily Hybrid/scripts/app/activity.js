@@ -38,35 +38,50 @@ app.Activity = (function () {
 
             activity.customer = customers[activityUid - 1];
             kendo.bind(e.view.element, activity, kendo.mobile.ui);
-
-            //create dataSource
-            //var areaTypeList = new kendo.data.DataSource({
-            //    data: [
-
-            var areaTypeList = [
-                { id: 1, name: "Kitchen", child: ["Cooker Hood", "Kitchen Table and C..", "Kitchen Floor"] },
-                { id: 2, name: "Bathroom", child: ["Bath", "Bathroom Floor"] },
-                { id: 3, name: "Bedroom", child: ["Bedroom Floor"] },
-                { id: 4, name: "Custom Area Type", child: ["Floor", "Custom A"] }
+            var areaTypeListData = [
+             { id: 1, name: "Kitchen", child: ["Cooker Hood", "Kitchen Table and C..", "Kitchen Floor"] },
+             { id: 2, name: "Bathroom", child: ["Bath", "Bathroom Floor"] },
+             { id: 3, name: "Bedroom", child: ["Bedroom Floor"] },
+             { id: 4, name: "Custom Area Type", child: ["Floor", "Custom A"] }
             ];
-            //schema: {
-            //    model: {
-            //        id: "id",
-            //        fields: {
-            //            id: { type: "number" },
-            //            name: { type: "string" }
-            //        }
-            //    }
-            //}
-            //});
-            var areaTypeDropList = [];
-            //for (var i = 0; i < areaTypeList.length; i++) {
-            //    for (var j = 0; j < areaTypeList[i].child.length; j++) {
+            //create dataSource
+            var areaTypeList = new kendo.data.DataSource({
+                data: [
+             { id: 1, name: "Kitchen", child: ["Cooker Hood", "Kitchen Table and C..", "Kitchen Floor"] },
+             { id: 2, name: "Bathroom", child: ["Bath", "Bathroom Floor"] },
+             { id: 3, name: "Bedroom", child: ["Bedroom Floor"] },
+             { id: 4, name: "Custom Area Type", child: ["Floor", "Custom A"] }
+                ]
+                //schema: {
+                //    model: {
+                //        id: "id",
+                //        fields: {
+                //            id: { type: "number" },
+                //            name: { type: "string" }
+                //        }
+                //    }
+                //}
+            });
+            var areaTypeDropList = new kendo.data.DataSource({
+                data: [],
+                group:"group"
+                //schema: {
+                //    model: {
+                //        id: "id",
+                //        fields: {
+                //            id: { type: "number" },
+                //            name: { type: "string" }
+                //        }
+                //    }
+                //}
+            });
+            //for (var i = 0; i < areaTypeListData.length; i++) {
+            //    for (var j = 0; j < areaTypeListData[i].child.length; j++) {
             //        var actionTypeGroup = {
-            //            group: areaTypeList[i].name,
-            //            name: areaTypeList[i].child[j]
+            //            group: areaTypeListData[i].name,
+            //            name: areaTypeListData[i].child[j]
             //        }
-            //        areaTypeDropList.push(actionTypeGroup); //add the item to ListB
+            //        areaTypeDropList.add(actionTypeGroup); //add the item to ListB
             //    }
             //}
 
@@ -76,7 +91,7 @@ app.Activity = (function () {
                 template: "<div class='item'>#: name #</div>"
             });
             $("#areaTypeDropList").kendoMobileListView({
-                dataSource: kendo.data.DataSource.create({ data: areaTypeDropList, group: "group" }), 
+                dataSource: areaTypeDropList,
                 template: $('#areaTypeDropTemplate').html(),
                 headerTemplate: $('#areaTypeDropHeaderTemplate').html(),
             });
@@ -112,7 +127,7 @@ app.Activity = (function () {
                             group: dataItem.name,
                             name: dataItem.child[j]
                         }
-                        areaTypeDropList.push(actionTypeGroup); //add the item to ListB
+                        areaTypeDropList.add(actionTypeGroup); //add the item to ListB
                     }
 
 
