@@ -40,35 +40,35 @@ app.Activity = (function () {
             kendo.bind(e.view.element, activity, kendo.mobile.ui);
 
             //create dataSource
-            var areaTypeList = new kendo.data.DataSource({
-                data: [
-                { id: 1, name: "Kitchen" },
-                { id: 2, name: "Bathroom" },
-                { id: 3, name: "Bedroom" },
-                { id: 4, name: "Custom Area Type" }
-                ],
-                schema: {
-                    model: {
-                        id: "id",
-                        fields: {
-                            id: { type: "number" },
-                            name: { type: "string" }
-                        }
-                    }
-                }
-            });
-            var areaTypeDropList = new kendo.data.DataSource({
-                data: [ /* still no data */],
-                schema: {
-                    model: {
-                        id: "id",
-                        fields: {
-                            id: { type: "number" },
-                            item: { type: "string" }
-                        }
-                    }
-                }
-            });
+            //var areaTypeList = new kendo.data.DataSource({
+            //    data: [
+
+            var areaTypeList = [
+                { id: 1, name: "Kitchen", child: ["Cooker Hood", "Kitchen Table and C..", "Kitchen Floor"] },
+                { id: 2, name: "Bathroom", child: ["Bath", "Bathroom Floor"] },
+                { id: 3, name: "Bedroom", child: ["Bedroom Floor"] },
+                { id: 4, name: "Custom Area Type", child: ["Floor", "Custom A"] }
+            ];
+            //schema: {
+            //    model: {
+            //        id: "id",
+            //        fields: {
+            //            id: { type: "number" },
+            //            name: { type: "string" }
+            //        }
+            //    }
+            //}
+            //});
+            var areaTypeDropList = [];
+            //for (var i = 0; i < areaTypeList.length; i++) {
+            //    for (var j = 0; j < areaTypeList[i].child.length; j++) {
+            //        var actionTypeGroup = {
+            //            group: areaTypeList[i].name,
+            //            name: areaTypeList[i].child[j]
+            //        }
+            //        areaTypeDropList.push(actionTypeGroup); //add the item to ListB
+            //    }
+            //}
 
             //display dataSource's data through ListView
             $("#areaTypeList").kendoMobileListView({
@@ -76,8 +76,9 @@ app.Activity = (function () {
                 template: "<div class='item'>#: name #</div>"
             });
             $("#areaTypeDropList").kendoMobileListView({
-                dataSource: areaTypeDropList,
-                template: "<div class='item'>#: name #</div>"
+                dataSource: kendo.data.DataSource.create({ data: areaTypeDropList, group: "group" }), 
+                template: $('#areaTypeDropTemplate').html(),
+                headerTemplate: $('#areaTypeDropHeaderTemplate').html(),
             });
 
             function addStyling(e) {
@@ -106,7 +107,14 @@ app.Activity = (function () {
                     console.log(dataItem);
 
                     areaTypeList.remove(dataItem); //remove the item from ListA
-                    areaTypeDropList.add(dataItem); //add the item to ListB
+                    for (var j = 0; j < dataItem.child.length; j++) {
+                        var actionTypeGroup = {
+                            group: dataItem.name,
+                            name: dataItem.child[j]
+                        }
+                        areaTypeDropList.push(actionTypeGroup); //add the item to ListB
+                    }
+
 
                     resetStyling.call(this); //reset visual dropTarget indication that was added on dragenter
                 }

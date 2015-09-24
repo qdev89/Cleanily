@@ -33,14 +33,14 @@
 
 <!-- Activities ListView Template -->
 <script type="text/x-kendo-template" id="activityTemplate">
-    <div onclick="app.Activities.activitySelected(#: Id#)" class="activity-item">
+    <div onclick="app.Activities.activitySelected(${Id})" class="activity-item">
         <div class="activity-time">
-            <span class="activity-time-value">#: Time#</span>
+            <span class="activity-time-value">${Time}</span>
         </div>
 
         <div class="activity-content">
-            <h2 class="person-name">#: CustomerName #</h2>
-            <a class="user-share-txt">#: Address #</a>
+            <h2 class="person-name">${CustomerName}</h2>
+            <a class="user-share-txt">${Address}</a>
         </div>
     </div>
 </script>

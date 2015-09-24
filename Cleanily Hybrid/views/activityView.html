@@ -8,28 +8,29 @@
             <a class="nav-button nav-button-icon nav-button-delete hide-text" data-align="right" data-role="button" data-bind="visible: isVisible" data-click="app.Activity.remove">Delete</a>
         </div>-->
         <p>
-            <span  style="font-size: larger">Regular cleaning checklist for:</span>
+            <span style="font-size: larger">Regular cleaning checklist for:</span>
             <span style="font-size: x-large; font-weight: Bold" data-bind="text: customer.CustomerName"></span>
         </p>
         <p>
-            <input type="text" readonly="readonly" data-bind="value: customer.Address" style="width: 75%"/>
+            <input type="text" readonly="readonly" data-bind="value: customer.Address" style="width: 75%" />
         </p>
         <p>
             <span style="font-size: larger">Area Type</span>
         </p>
         <div id="areaTypeList"></div>
-        <div id="areaTypeDropList"></div>
+        <ul id="areaTypeDropList"></ul>
 
     </div>
 </div>
 
 <style>
     #areaTypeDropList {
-        width: 300px;
-        height: 280px;
-        border: 3px solid black;
-        border-radius: 3px;
+        /*width: 300px;
+        height: 280px;*/
+        border: 1px solid black;
+        border-radius: 1px;
     }
+
     #areaTypeList {
         width: 300px;
         /*border: 3px solid black;
@@ -53,4 +54,24 @@
         <h2 class="person-name">#: User().DisplayName #</h2>
         <a class="user-share-txt">#: Comment #</a>
     </div>
+</script>
+
+<!--<ul data-role="listview" data-style="inset" data-transition="overlay:zoom" class="singleLine">
+    <li data-bind="click: localCustomerClick">
+        <a data-retailerid="#:RetailerID#">
+            <span class="retailerLogo" id="#:RetailerID#logoId" style="background-image:url(#: Retailer.LogoUrl #)"></span>
+            <div class='inlineIconLabel'>
+                <h3>#: Retailer.Name #</h3>
+            </div>
+        </a>
+    </li>
+</ul-->
+
+<script type="text/x-kendo-template" id="areaTypeDropTemplate">
+    ${name}
+    <a data-role="button" class="km-button-right" style="float: right">Edit</a>
+</script>
+<script type="text/x-kendo-template" id="areaTypeDropHeaderTemplate">
+   ${value}
+    <span  style="float: right;margin-right:10px">+</span>
 </script>
