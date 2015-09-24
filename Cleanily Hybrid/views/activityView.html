@@ -12,14 +12,14 @@
             <span style="font-size: x-large; font-weight: Bold" data-bind="text: customer.CustomerName"></span>
         </p>
         <p>
-            <input type="text" readonly="readonly" data-bind="value: customer.Address" style="width: 75%" />
+            <input type="text" readonly="readonly" data-bind="value: customer.Address" style="width: 75%"/>
         </p>
         <p>
             <span style="font-size: larger">Area Type</span>
         </p>
         <ul id="areaTypeList"></ul>
         <ul id="areaTypeDropList"></ul>
-        <a data-role="button" style="margin:5px" class="km-primary">Save</a>
+        <a data-role="button" style="margin: 5px" class="km-primary">Save</a>
     </div>
 </div>
 
@@ -74,5 +74,8 @@
 </script>
 <script type="text/x-kendo-template" id="areaTypeDropHeaderTemplate">
    ${value}
-    <span  style="float: right;margin-right:10px">+</span>
+   
+    <input type="button" value="+" style="float: right;margin-right:10px"/> 
+    <!--<span  style="float: right;margin-right:10px">+</span>-->
+   
 </script>

@@ -46,12 +46,7 @@ app.Activity = (function () {
             ];
             //create dataSource
             var areaTypeList = new kendo.data.DataSource({
-                data: [
-             { id: 1, name: "Kitchen", child: ["Cooker Hood", "Kitchen Table and C..", "Kitchen Floor"] },
-             { id: 2, name: "Bathroom", child: ["Bath", "Bathroom Floor"] },
-             { id: 3, name: "Bedroom", child: ["Bedroom Floor"] },
-             { id: 4, name: "Custom Area Type", child: ["Floor", "Custom A"] }
-                ]
+                data: areaTypeListData
                 //schema: {
                 //    model: {
                 //        id: "id",
@@ -75,15 +70,15 @@ app.Activity = (function () {
                 //    }
                 //}
             });
-            //for (var i = 0; i < areaTypeListData.length; i++) {
-            //    for (var j = 0; j < areaTypeListData[i].child.length; j++) {
-            //        var actionTypeGroup = {
-            //            group: areaTypeListData[i].name,
-            //            name: areaTypeListData[i].child[j]
-            //        }
-            //        areaTypeDropList.add(actionTypeGroup); //add the item to ListB
-            //    }
-            //}
+            for (var i = 0; i < areaTypeListData.length; i++) {
+                for (var j = 0; j < areaTypeListData[i].child.length; j++) {
+                    var actionTypeGroup = {
+                        group: areaTypeListData[i].name,
+                        name: areaTypeListData[i].child[j]
+                    }
+                    areaTypeDropList.add(actionTypeGroup); //add the item to ListB
+                }
+            }
 
             //display dataSource's data through ListView
             $("#areaTypeList").kendoMobileListView({
