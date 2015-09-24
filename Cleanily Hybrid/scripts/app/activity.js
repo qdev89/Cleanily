@@ -70,15 +70,15 @@ app.Activity = (function () {
                 //    }
                 //}
             });
-            for (var i = 0; i < areaTypeListData.length; i++) {
-                for (var j = 0; j < areaTypeListData[i].child.length; j++) {
-                    var actionTypeGroup = {
-                        group: areaTypeListData[i].name,
-                        name: areaTypeListData[i].child[j]
-                    }
-                    areaTypeDropList.add(actionTypeGroup); //add the item to ListB
-                }
-            }
+            //for (var i = 0; i < areaTypeListData.length; i++) {
+            //    for (var j = 0; j < areaTypeListData[i].child.length; j++) {
+            //        var actionTypeGroup = {
+            //            group: areaTypeListData[i].name,
+            //            name: areaTypeListData[i].child[j]
+            //        }
+            //        areaTypeDropList.add(actionTypeGroup); //add the item to ListB
+            //    }
+            //}
 
             //display dataSource's data through ListView
             $("#areaTypeList").kendoMobileListView({
