@@ -3,7 +3,14 @@
  */
 
 var appSettings = {
-
+    api: {
+        url: 'http://stark-badlands-3597.herokuapp.com/',
+        user_email: 'edward@traditional-cleaning.com',
+        auth_token: 'mWzxBznmCb4HnsnVz5nF',
+        apiurl: function (api) {
+            return this.url + api + '?user_email=' + this.user_email + '&user_token=' + this.auth_token;
+        }
+    },
     everlive: {
         apiKey: 'Y2zoiv3NluRcE1sc', // Put your Backend Services API key here
         scheme: 'http',

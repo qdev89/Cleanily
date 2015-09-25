@@ -9,10 +9,10 @@
         </div>-->
         <p>
             <span style="font-size: larger">Regular cleaning checklist for:</span>
-            <span style="font-size: x-large; font-weight: Bold" data-bind="text: customer.CustomerName"></span>
+            <span style="font-size: x-large; font-weight: Bold" data-bind="text: user.name"></span>
         </p>
         <p>
-            <input type="text" readonly="readonly" data-bind="value: customer.Address" style="width: 75%"/>
+            <input type="text" readonly="readonly" data-bind="value: address_line_1" style="width: 75%" />
         </p>
         <p>
             <span style="font-size: larger">Area Type</span>
@@ -73,9 +73,9 @@
     <a data-role="button" class="km-button-right" style="float: right">Edit</a>
 </script>
 <script type="text/x-kendo-template" id="areaTypeDropHeaderTemplate">
-   ${value}
-   
-    <input type="button" value="+" style="float: right;margin-right:10px"/> 
+    ${value}
+
+    <input type="button" value="+" style="float: right;margin-right:10px" />
     <!--<span  style="float: right;margin-right:10px">+</span>-->
-   
+
 </script>

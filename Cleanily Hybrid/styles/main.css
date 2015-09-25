@@ -513,7 +513,6 @@ input[type='week'] {
 #cleanilyApp .activity-content,
 #cleanilyApp .comment-content {
     position: relative;
-    padding-left: 5em;
     font-size: .85rem;
 }
 

@@ -1,13 +1,11 @@
 <div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-model="app.Activities" data-show="app.Activities.show">
     <div data-role="header">
-        <div data-role="navbar">
-            Welcome to Cleanily app
-            <a class="nav-button" data-align="right" data-role="backbutton" data-click="app.Activities.logout">Logout</a>
-            <!--<a class="nav-button" data-align="right" data-role="button" href="views/addActivityView.html">Add</a>-->
-        </div>
     </div>
-    <h3>Customer Visits for:</h3>
-    <h2 data-bind='text: currentDate'></h2>
+    <div>Welcome to Cleanily app
+        <a data-role="button" class="btn" data-click="app.Activities.logout">Logout</a>
+    </div>
+    <h3>Find a checklist:</h3>
+    <input type="search" name="" id="activities-search" placeholder="type the customer lastname or address line 1 to find a check list" style="margin-left: 16px;width: 70%;" />
 
     <!--<ul id="activities-listview" data-style="inset" data-role="listview" data-template="activityTemplate" data-bind="source: activities"></ul>-->
     <ul id="activities-listview" data-style="inset" data-role="listview"></ul>
@@ -33,14 +31,11 @@
 
 <!-- Activities ListView Template -->
 <script type="text/x-kendo-template" id="activityTemplate">
-    <div onclick="app.Activities.activitySelected(${Id})" class="activity-item">
-        <div class="activity-time">
-            <span class="activity-time-value">${Time}</span>
-        </div>
-
-        <div class="activity-content">
-            <h2 class="person-name">${CustomerName}</h2>
-            <a class="user-share-txt">${Address}</a>
+    <div onclick="app.Activities.activitySelected(${id},${user.id})" class="activity-item">
+        <div class="activity-content" align="center">
+            <h2 class="person-name">${user.name}</h2>
+            <a class="user-share-txt">${address_line_1}</a>
+            <a>Checklist_type</a>
         </div>
     </div>
 </script>

@@ -112,32 +112,32 @@ app.Activities = (function () {
             //        });
 
 
-            //$.getJSON('/data/customers.json', function (data) {
-                //var dataSource = new kendo.data.DataSource({
-                //    transport: {
-                //        read: function (options) {
-                //            try {
-                //                app.mobileApp.hideLoading();
-                //                options.success(data);
-                //            } catch (err) {
-                //                console.log(err);
-                //            }
-                //        }
-                //    },
-                //    error: function (e) {
-                //        alert(JSON.stringify(error));
-                //    },
-                //    //schema: {
-                //    //    // describe the result format
-                //    //    model: activityModel
-                //    //}
-                //});
-              
-            //});
-            $("#activities-listview").kendoMobileListView({
-                dataSource: customers,
-                template: $("#activityTemplate").html()
+            $.getJSON(appSettings.api.apiurl('franchisee/customers/160/addresses.json'), function (data) {
+                var dataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: function (options) {
+                            try {
+                                app.mobileApp.hideLoading();
+                                options.success(data.addresses);
+                            } catch (err) {
+                                console.log(err);
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        alert(JSON.stringify(error));
+                    },
+                    //schema: {
+                    //    // describe the result format
+                    //    model: activityModel
+                    //}
+                });
+                $("#activities-listview").kendoMobileListView({
+                    dataSource: dataSource,
+                    template: $("#activityTemplate").html()
+                });
             });
+
         }
         return {
             show: show
@@ -149,8 +149,9 @@ app.Activities = (function () {
     var activitiesViewModel = (function () {
 
         // Navigate to activityView When some activity is selected
-        var activitySelected = function (e) {
-            app.mobileApp.navigate('views/activityView.html?uid=' + e);
+        var activitySelected = function (addressId, customerId) {
+            debugger;
+            app.mobileApp.navigate('views/activityView.html?addressId=' + addressId + '&customerId=' + customerId);
         };
         // Navigate to app home
         var navigateHome = function () {
