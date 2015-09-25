@@ -123,7 +123,9 @@ app.Activity = (function () {
                         //    }
                         //    areaTypeDropList.add(actionTypeGroup); //add the item to ListB
                         //}
-                        areaTypeDropList.add(dataItem.value); //add the item to ListB
+                        for (var i = 0; i < dataItem.value.length; i++) {
+                            areaTypeDropList.add(dataItem.value[i]); //add the item to ListB
+                        }
 
                         resetStyling.call(this); //reset visual dropTarget indication that was added on dragenter
                     }
