@@ -5,8 +5,10 @@
 var appSettings = {
     api: {
         url: 'http://stark-badlands-3597.herokuapp.com/',
-        user_email: 'edward@traditional-cleaning.com',
-        auth_token: 'mWzxBznmCb4HnsnVz5nF',
+        user_email: '',
+        //user_email: 'edward@traditional-cleaning.com',
+        //auth_token: 'mWzxBznmCb4HnsnVz5nF',
+        auth_token: '',
         apiurl: function (api) {
             return this.url + api + '?user_email=' + this.user_email + '&user_token=' + this.auth_token;
         }
@@ -21,7 +23,7 @@ var appSettings = {
         productKey: '2e45ecad41fc4571955789b1f02136c2',  // Put your EQATEC product key here
         version: '1.0.0.0' // Put your application version here
     },
-    
+
     feedback: {
         apiKey: 'bf2db8c0-606b-11e5-917b-99a0fa09df91',  // Put your AppFeedback API key here
         options: {

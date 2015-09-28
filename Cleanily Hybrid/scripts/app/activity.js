@@ -49,20 +49,30 @@ app.Activity = (function () {
                  //{ id: 3, name: "Bedroom", child: ["Bedroom Floor"] },
                  //{ id: 4, name: "Custom Area Type", child: ["Floor", "Custom A"] }
                 ];
-                for (var propertyName in data.checklists[0].checklist_entries) {
-                    //for (var i = 0; i < data.checklists[0].checklist_entries[propertyName].length; i++) {
-                    var item = data.checklists[0].checklist_entries[propertyName];
+                //for (var propertyName in data.checklists[0].checklist_entries) {
+
+                var groupItems = {}, base, key;
+                $.each(data.checklists[0].checklist_entries, function (index, val) {
+                    key = val['area_type'];
+                    if (!groupItems[key]) {
+                        groupItems[key] = [];
+                    }
+                    groupItems[key].push(val);
+                });
+
+                for (var propertyName in groupItems) {
+                    //for (var i = 0; i < groupItems.length; i++) {
                     var areaType = {
                         "name": propertyName,
-                        'value': data.checklists[0].checklist_entries[propertyName]
+                        'value': groupItems[propertyName]
                     };
                     areaTypeListData.push(areaType);
-                    //}
                 }
+                //}
 
                 //create dataSource
                 var areaTypeList = new kendo.data.DataSource({
-                    data: areaTypeListData,
+                    data: areaTypeListData
                     //group: "area_type"
                 });
                 var areaTypeDropList = new kendo.data.DataSource({

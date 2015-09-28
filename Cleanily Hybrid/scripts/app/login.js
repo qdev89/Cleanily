@@ -51,8 +51,8 @@ app.Login = (function () {
         };
 
         var show = function () {
-            $loginUsername.val('');
-            $loginPassword.val('');
+            $loginUsername.val('edward@traditional-cleaning.com');
+            $loginPassword.val('firstadminuser');
         };
 
         // Authenticate to use Backend Services as a particular user
@@ -60,9 +60,37 @@ app.Login = (function () {
 
             var username = $loginUsername.val();
             var password = $loginPassword.val();
-            app.mobileApp.navigate('views/activitiesView.html');
-
-            //app.mobileApp.showLoading();
+            //app.mobileApp.navigate('views/activitiesView.html');
+            var userLogin =
+                {
+                    "user_login":
+                    {
+                        "email": username,
+                        "password": password
+                    }
+                };
+            app.mobileApp.showLoading();
+            $.ajax({
+                url: appSettings.api.url + 'api/users/sign_in.json',
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    app.mobileApp.hideLoading();
+                    if (data.success) {
+                        appSettings.api.user_email = data.user_email;
+                        appSettings.api.auth_token = data.user_token;
+                        app.mobileApp.navigate('views/activitiesView.html');
+                    } else {
+                        alert("Email or passwork is incorrect. Please try again.");
+                    }
+                },
+                data: userLogin,
+                error: function (request, status, error) {
+                    app.mobileApp.hideLoading();
+                    var obj = JSON.parse(request.responseText);
+                    alert(obj.message);
+                }
+            });
 
             //// Authenticate using the username and password
             //app.everlive.Users.login(username, password)
