@@ -73,70 +73,46 @@ app.Activities = (function () {
         //};
 
         var show = function () {
-            //// Activities data source. The Backend Services dialect of the Kendo UI DataSource component
-            //// supports filtering, sorting, paging, and CRUD operations.
-            //    var data = app.everlive.data('Activities');
-            //    var query = new Everlive.Query();
-            //    app.mobileApp.showLoading();
-            //    data.get(query)
-            //        .then(function (data) {
-            //            if (data.result.length > 0) {
-            //                $('#no-activities-span').hide();
-            //                var dataSource = new kendo.data.DataSource({
-            //                    transport: {
-            //                        read: function (options) {
-            //                            try {
-            //                                app.mobileApp.hideLoading();
-            //                                options.success(data.result);
-            //                            } catch (err) {
-            //                                console.log(err);
-            //                            }
-            //                        }
-            //                    },
-            //                    error: function (e) {
-            //                        alert(JSON.stringify(error));
-            //                    },
-            //                    schema: { // describe the result format
-            //                        model: activityModel
-            //                    }
-            //                });
-
-            //              
-            //            }
-            //            else {
-            //                $('#no-activities-span').show();
-            //            }
-            //        },
-            //        function (error) {
-            //            alert(JSON.stringify(error));
-            //        });
-
-
-            $.getJSON(appSettings.api.apiurl('franchisee/customers/160/addresses.json'), function (data) {
-                var dataSource = new kendo.data.DataSource({
-                    transport: {
-                        read: function (options) {
-                            try {
-                                app.mobileApp.hideLoading();
-                                options.success(data.addresses);
-                            } catch (err) {
-                                console.log(err);
+            function instantSearch() {
+                var key = $('#activities-search').val();
+                if (key.length >= 3) {
+                    $.getJSON(appSettings.api.url + 'franchisee/checklists/autocomplete.json?query_string=' + key + '&user_email=' + appSettings.api.user_email + '&user_token=' + appSettings.api.auth_token, function (data) {
+                        var dataSource = new kendo.data.DataSource({
+                            transport: {
+                                read: function (options) {
+                                    try {
+                                        app.mobileApp.hideLoading();
+                                        options.success(data.checklists);
+                                    } catch (err) {
+                                        console.log(err);
+                                    }
+                                }
+                            },
+                            error: function (e) {
+                                alert(JSON.stringify(error));
                             }
-                        }
-                    },
-                    error: function (e) {
-                        alert(JSON.stringify(error));
-                    },
-                    //schema: {
-                    //    // describe the result format
-                    //    model: activityModel
-                    //}
-                });
-                $("#activities-listview").kendoMobileListView({
-                    dataSource: dataSource,
-                    template: $("#activityTemplate").html()
-                });
+                        });
+                        $("#activities-listview").kendoMobileListView({
+                            dataSource: dataSource,
+                            template: $("#activityTemplate").html()
+                        });
+                    });
+                }
+                else {
+                    $("#activities-listview").kendoMobileListView({
+                        dataSource: new kendo.data.DataSource(),
+                        template: $("#activityTemplate").html()
+                    });
+                }
+            }
+
+            var timer;
+            $('#activities-search').keyup(function () {
+                timer && clearTimeout(timer);
+                timer = setTimeout(instantSearch, 200);
             });
+
+
 
         }
         return {

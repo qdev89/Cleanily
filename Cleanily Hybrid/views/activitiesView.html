@@ -32,10 +32,10 @@
 
 <!-- Activities ListView Template -->
 <script type="text/x-kendo-template" id="activityTemplate">
-    <div onclick="app.Activities.activitySelected(${id},${user.id})" class="activity-item">
+    <div onclick="app.Activities.activitySelected(${address.id},${address.user.id})" class="activity-item">
         <div class="activity-content" align="center">
-            <h2 class="person-name">${user.name}</h2>
-            <a class="user-share-txt">${address_line_1}</a>
+            <h2 class="person-name">${address.user.name}</h2>
+            <a class="user-share-txt">${address.address_line_1}</a>
             <a>Checklist_type</a>
         </div>
     </div>
