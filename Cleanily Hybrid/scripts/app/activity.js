@@ -202,7 +202,22 @@ app.Activity = (function () {
                         var area_type = dataItem.area_type;
                         var exists = $.inArray(area_type.toLowerCase(), groupAreaType) > -1;
                         if (exists) {
-                            area_type = area_type + " Number 2";
+                            /*if (area_type.indexOf('Number') == -1) {
+                                area_type = area_type + " Number 2";
+                            } else {
+                                var number = area_type.substring(area_type.length - 1, area_type.length);
+                                var numberInt = parseInt(number) + 1;
+                                area_type = area_type + " Number " + numberInt;
+                            }*/
+
+                            var numberOfAreaType = 1;
+                            for (var i = 0; i < groupAreaType.length; i++) {
+                                if (groupAreaType[i].toLowerCase().indexOf(area_type.toLowerCase()) != -1) {
+                                    numberOfAreaType++;
+                                }
+                            }
+
+                            area_type = area_type + " Number " + numberOfAreaType;
                         }
 
                         for (var i = 0; i < dataItem.area_items.length; i++) {
