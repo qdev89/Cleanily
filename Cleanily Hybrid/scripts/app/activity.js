@@ -13,10 +13,10 @@ app.Activity = (function () {
     var activityViewModel = (function () {
 
         var addressId, customerId,
-            activity = {}, checklist_id;
+            activity = {},
+            checklist_id;
 
-        var init = function (e) {
-        };
+        var init = function (e) {};
 
         var show = function (e) {
             listScroller = e.view.scroller;
@@ -44,32 +44,59 @@ app.Activity = (function () {
                 activity = data.checklists[0].address;
                 kendo.bind(e.view.element, activity, kendo.mobile.ui);
                 var areaTypeListData = [
-                 {
-                     area_type: "Kitchen",
-                     area_items: [
-                         { area_item: "Cooker Hood", area_item_description: "N/A" },
-                         { area_item: "Kitchen Table and C..", area_item_description: "N/A" },
-                         { area_item: "Kitchen Floor", area_item_description: "N/A" }]
+                    {
+                        area_type: "Kitchen",
+                        area_items: [
+                            {
+                                area_item: "Cooker Hood",
+                                area_item_description: "N/A"
+                            },
+                            {
+                                area_item: "Kitchen Table and C..",
+                                area_item_description: "N/A"
+                            },
+                            {
+                                area_item: "Kitchen Floor",
+                                area_item_description: "N/A"
+                            }]
                  },
                     {
                         area_type: "Bathroom",
                         area_items: [
-                            { area_item: "Bath", area_item_description: "N/A" },
-                            { area_item: "Bathroom Floor", area_item_description: "N/A" },
-                            { area_item: "Clean Shower Screen", area_item_description: "Hygienically cleaned, removal of any limescale/mildew deposits. Make sure no streaks are left." }
+                            {
+                                area_item: "Bath",
+                                area_item_description: "N/A"
+                            },
+                            {
+                                area_item: "Bathroom Floor",
+                                area_item_description: "N/A"
+                            },
+                            {
+                                area_item: "Clean Shower Screen",
+                                area_item_description: "Hygienically cleaned, removal of any limescale/mildew deposits. Make sure no streaks are left."
+                            }
                         ]
                     },
                     {
                         area_type: "Bedroom",
                         area_items: [
-                            { area_item: "Bedroom Floor", area_item_description: "N/A" }
+                            {
+                                area_item: "Bedroom Floor",
+                                area_item_description: "N/A"
+                            }
                         ]
                     },
                     {
                         area_type: "Custom Area Type",
                         area_items: [
-                            { area_item: "Floor", area_item_description: "N/A" },
-                            { area_item: "Custom A", area_item_description: "N/A" }
+                            {
+                                area_item: "Floor",
+                                area_item_description: "N/A"
+                            },
+                            {
+                                area_item: "Custom A",
+                                area_item_description: "N/A"
+                            }
                         ]
                     }
                 ];
@@ -80,7 +107,7 @@ app.Activity = (function () {
                 //create dataSource
                 var areaTypeList = new kendo.data.DataSource({
                     data: areaTypeListData
-                    //group: "area_type"
+                        //group: "area_type"
                 });
 
                 //var groupItems = {}, base, key;
@@ -151,9 +178,9 @@ app.Activity = (function () {
                     dragenter: addStyling, //add visual indication
                     dragleave: resetStyling, //remove the visual indication
                     drop: function (e) { //apply changes to the data after an item is dropped
-                        
+
                         var draggableElement = e.draggable.currentTarget.parent(),
-                        dataItem = areaTypeList.getByUid(draggableElement.data("uid")); //find the corresponding dataItem by uid
+                            dataItem = areaTypeList.getByUid(draggableElement.data("uid")); //find the corresponding dataItem by uid
                         console.log(dataItem);
 
                         //areaTypeList.remove(dataItem); //remove the item from ListA
@@ -164,14 +191,27 @@ app.Activity = (function () {
                         //    }
                         //    areaTypeDropList.add(actionTypeGroup); //add the item to ListB
                         //}
-                      
-                        for (var i = 0; i < dataItem.area_items.value.length; i++) {
+
+                        var groupAreaType = [];
+                        var view = areaTypeDropList.view();
+                        for (var i = 0; i < view.length; i++) {
+                            groupAreaType.push(view[i].value.toLowerCase())
+                        }
+                        debugger;
+
+                        var area_type = dataItem.area_type;
+                        var exists = $.inArray(area_type.toLowerCase(), groupAreaType) > -1;
+                        if (exists) {
+                            area_type = area_type + " Number 2";
+                        }
+
+                        for (var i = 0; i < dataItem.area_items.length; i++) {
                             var item = dataItem.area_items[i];
                             var areaType = {
-                                area_type: dataItem.area_type,
+                                area_type: area_type,
                                 action_item: item.area_item,
                                 action_item_description: item.area_item_description,
-                                id: -1,// for add new
+                                id: -1, // for add new
                                 customer_reviews: [],
                                 checklist_id: checklist_id,
                                 is_draft: false,
