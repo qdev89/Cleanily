@@ -126,7 +126,7 @@ app.Activities = (function () {
 
         // Navigate to activityView When some activity is selected
         var activitySelected = function (addressId, customerId) {
-            debugger;
+            
             app.mobileApp.navigate('views/activityView.html?addressId=' + addressId + '&customerId=' + customerId);
         };
         // Navigate to app home
