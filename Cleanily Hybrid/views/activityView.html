@@ -55,7 +55,7 @@
 <script type="text/x-kendo-template" id="areaTypeDropTemplate">
     <div>
         ${action_item}
-        <p>${action_item_description}</p>
+        <p>${action_item_description != null ? action_item_description : '' }</p>
     </div>
     <a data-role="button" class="km-button-right" style="float: right;position: absolute;right: 0;top: 0;">Edit</a>
 
