@@ -15,7 +15,7 @@
             <input type="text" readonly="readonly" data-bind="value: address_line_1" style="width: 75%" />
         </p>
         <p>
-            <span style="font-size: larger">Area Type</span>
+            <span style="font-size: larger">Drag to add another Area Type</span>
         </p>
         <ul id="areaTypeList"></ul>
         <ul id="areaTypeDropList"></ul>
@@ -24,6 +24,11 @@
 </div>
 
 <style>
+    .km-group-title {
+        margin-bottom: 5px;
+        height: 27px;
+    }
+
     #areaTypeDropList {
         min-height: 200px;
         /*width: 300px;
@@ -46,35 +51,17 @@
         border-radius: 3px;
     }
 </style>
-<!-- Comments Template -->
-<script type="text/x-kendo-template" id="commentsTemplate">
-    <div class="user-avatar">
-        <img src="#: User().PictureUrl #" alt="#: User().DisplayName #">
-    </div>
-    <div class="comment-content">
-        <h2 class="person-name">#: User().DisplayName #</h2>
-        <a class="user-share-txt">#: Comment #</a>
-    </div>
-</script>
-
-<!--<ul data-role="listview" data-style="inset" data-transition="overlay:zoom" class="singleLine">
-    <li data-bind="click: localCustomerClick">
-        <a data-retailerid="#:RetailerID#">
-            <span class="retailerLogo" id="#:RetailerID#logoId" style="background-image:url(#: Retailer.LogoUrl #)"></span>
-            <div class='inlineIconLabel'>
-                <h3>#: Retailer.Name #</h3>
-            </div>
-        </a>
-    </li>
-</ul-->
 
 <script type="text/x-kendo-template" id="areaTypeDropTemplate">
-    ${action_item}
-    <a data-role="button" class="km-button-right" style="float: right">Edit</a>
+    <div>
+        ${action_item}
+        <p>${action_item_description}</p>
+    </div>
+    <a data-role="button" class="km-button-right" style="float: right;position: absolute;right: 0;top: 0;">Edit</a>
+
 </script>
 <script type="text/x-kendo-template" id="areaTypeDropHeaderTemplate">
     ${value}
-
     <input type="button" value="+" style="float: right;margin-right:10px" />
     <!--<span  style="float: right;margin-right:10px">+</span>-->
 

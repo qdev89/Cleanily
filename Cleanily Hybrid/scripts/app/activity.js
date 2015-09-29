@@ -13,7 +13,7 @@ app.Activity = (function () {
     var activityViewModel = (function () {
 
         var addressId, customerId,
-            activity = {};
+            activity = {}, checklist_id;
 
         var init = function (e) {
         };
@@ -44,39 +44,70 @@ app.Activity = (function () {
                 activity = data.checklists[0].address;
                 kendo.bind(e.view.element, activity, kendo.mobile.ui);
                 var areaTypeListData = [
-                 //{ id: 1, name: "Kitchen", child: ["Cooker Hood", "Kitchen Table and C..", "Kitchen Floor"] },
-                 //{ id: 2, name: "Bathroom", child: ["Bath", "Bathroom Floor"] },
-                 //{ id: 3, name: "Bedroom", child: ["Bedroom Floor"] },
-                 //{ id: 4, name: "Custom Area Type", child: ["Floor", "Custom A"] }
+                 {
+                     area_type: "Kitchen",
+                     area_items: [
+                         { area_item: "Cooker Hood", area_item_description: "N/A" },
+                         { area_item: "Kitchen Table and C..", area_item_description: "N/A" },
+                         { area_item: "Kitchen Floor", area_item_description: "N/A" }]
+                 },
+                    {
+                        area_type: "Bathroom",
+                        area_items: [
+                            { area_item: "Bath", area_item_description: "N/A" },
+                            { area_item: "Bathroom Floor", area_item_description: "N/A" },
+                            { area_item: "Clean Shower Screen", area_item_description: "Hygienically cleaned, removal of any limescale/mildew deposits. Make sure no streaks are left." }
+                        ]
+                    },
+                    {
+                        area_type: "Bedroom",
+                        area_items: [
+                            { area_item: "Bedroom Floor", area_item_description: "N/A" }
+                        ]
+                    },
+                    {
+                        area_type: "Custom Area Type",
+                        area_items: [
+                            { area_item: "Floor", area_item_description: "N/A" },
+                            { area_item: "Custom A", area_item_description: "N/A" }
+                        ]
+                    }
                 ];
                 //for (var propertyName in data.checklists[0].checklist_entries) {
 
-                var groupItems = {}, base, key;
-                $.each(data.checklists[0].checklist_entries, function (index, val) {
-                    key = val['area_type'];
-                    if (!groupItems[key]) {
-                        groupItems[key] = [];
-                    }
-                    groupItems[key].push(val);
-                });
-
-                for (var propertyName in groupItems) {
-                    //for (var i = 0; i < groupItems.length; i++) {
-                    var areaType = {
-                        "name": propertyName,
-                        'value': groupItems[propertyName]
-                    };
-                    areaTypeListData.push(areaType);
-                }
-                //}
+                var areaTypeDropListData = [];
 
                 //create dataSource
                 var areaTypeList = new kendo.data.DataSource({
                     data: areaTypeListData
                     //group: "area_type"
                 });
+
+                //var groupItems = {}, base, key;
+                //$.each(data.checklists[0].checklist_entries, function (index, val) {
+                //    key = val['area_type'];
+                //    if (!groupItems[key]) {
+                //        groupItems[key] = [];
+                //    }
+                //    groupItems[key].push(val);
+                //});
+
+                //for (var propertyName in groupItems) {
+                //    //for (var i = 0; i < groupItems.length; i++) {
+                //    var areaType = {
+                //        "name": propertyName,
+                //        'value': groupItems[propertyName]
+                //    };
+                //    areaTypeDropListData.push(areaType);
+                //}
+                ////}
+                for (var i = 0; i < data.checklists[0].checklist_entries.length; i++) {
+                    checklist_id = data.checklists[0].checklist_entries[i].checklist_id;
+                    areaTypeDropListData.push(data.checklists[0].checklist_entries[i]); //add the item to ListB
+                }
+
                 var areaTypeDropList = new kendo.data.DataSource({
-                    data: [],
+                    data: areaTypeDropListData,
                     group: "area_type"
                 });
                 //for (var i = 0; i < areaTypeListData.length; i++) {
@@ -92,7 +123,7 @@ app.Activity = (function () {
                 //display dataSource's data through ListView
                 $("#areaTypeList").kendoMobileListView({
                     dataSource: areaTypeList,
-                    template: "<div class='item'>#: name #</div>"
+                    template: "<div class='item'>#: area_type #</div>"
                 });
                 $("#areaTypeDropList").kendoMobileListView({
                     dataSource: areaTypeDropList,
@@ -120,12 +151,12 @@ app.Activity = (function () {
                     dragenter: addStyling, //add visual indication
                     dragleave: resetStyling, //remove the visual indication
                     drop: function (e) { //apply changes to the data after an item is dropped
-                        debugger;
+                        
                         var draggableElement = e.draggable.currentTarget.parent(),
                         dataItem = areaTypeList.getByUid(draggableElement.data("uid")); //find the corresponding dataItem by uid
                         console.log(dataItem);
 
-                        areaTypeList.remove(dataItem); //remove the item from ListA
+                        //areaTypeList.remove(dataItem); //remove the item from ListA
                         //for (var j = 0; j < dataItem.child.length; j++) {
                         //    var actionTypeGroup = {
                         //        group: dataItem.name,
@@ -133,8 +164,21 @@ app.Activity = (function () {
                         //    }
                         //    areaTypeDropList.add(actionTypeGroup); //add the item to ListB
                         //}
-                        for (var i = 0; i < dataItem.value.length; i++) {
-                            areaTypeDropList.add(dataItem.value[i]); //add the item to ListB
+                      
+                        for (var i = 0; i < dataItem.area_items.value.length; i++) {
+                            var item = dataItem.area_items[i];
+                            var areaType = {
+                                area_type: dataItem.area_type,
+                                action_item: item.area_item,
+                                action_item_description: item.area_item_description,
+                                id: -1,// for add new
+                                customer_reviews: [],
+                                checklist_id: checklist_id,
+                                is_draft: false,
+                                have_new_comment: false
+                            }
+
+                            areaTypeDropList.add(areaType); //add the item to ListB
                         }
 
                         resetStyling.call(this); //reset visual dropTarget indication that was added on dragenter
