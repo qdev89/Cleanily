@@ -141,7 +141,12 @@ var app = (function (win) {
                                                      statusBarStyle: statusBarStyle,
                                                      skin: 'flat'
                                                  });
-
+    var showLoading = function() {
+        $("#busyLoader").show();
+    }
+    var hideLoading = function () {
+        $("#busyLoader").hide();
+    }
     return {
         showAlert: showAlert,
         showError: showError,
@@ -149,8 +154,10 @@ var app = (function (win) {
         isKeySet: isKeySet,
         mobileApp: mobileApp,
         helper: AppHelper,
-        everlive: el
-    };
+        everlive: el,
+        showLoading: showLoading,
+        hideLoading: hideLoading
+};
 }(window));
 
 function groupByUtil(array, f) {

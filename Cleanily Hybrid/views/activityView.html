@@ -50,14 +50,65 @@
         border: 2px solid #000000;
         border-radius: 3px;
     }
+
+    .km-list > li {
+        padding: 0px !important;
+    }
+
+    .header-areaType {
+        margin: 0px !important;
+    }
+
+    .header-actionItem {
+        margin: 0px !important;
+    }
+
+    .km-collapsible-header {
+        height: 50px;
+        color: blue;
+    }
+
+  /*  .km-collapsible-content {
+        min-height: 100px !important;
+        height: auto !important;
+    }*/
 </style>
 
 <script type="text/x-kendo-template" id="areaTypeDropTemplate">
-    <div>
-        ${action_item}
-        <p>${action_item_description != null ? action_item_description : '' }</p>
+    #var areaTypeTrim = area_type.replace(/ /g,'_');#
+    <div data-role="collapsible" data-animation="false" data-collapsed="true" class="header-areaType" id="${areaTypeTrim}AreaType">
+        <h3>
+            <span>
+                ${area_type}
+            </span>
+            <a data-role="button" class="km-button-right" style="float: right;position: absolute;right: 100px;top: 2px;    font-size: medium;  font-weight: normal;" onclick="app.Activity.deleteAreaType('${area_type}', this)">Delete</a>
+            <a data-role="button" class="km-button-right" style="float: right;position: absolute;right: 40px;top: 2px;    font-size: medium;  font-weight: normal;" onclick="app.Activity.editAreaType('${area_type}', this)" id="${areaTypeTrim}AreaTypeEditButton">Edit</a>
+            <a data-role="button" class="km-button-right" style="float: right;position: absolute;right: 0;top: 2px;    font-size: medium;  font-weight: normal;" onclick="app.Activity.addActionItem('${area_type}', this)" id="${areaTypeTrim}AreaTypeSaveButton">+</a>
+        </h3>
+        <!--<input type="text" style="float: left; position: absolute; top: 20px; left: 0px; font-size: medium; font-weight: normal; width: 70%; background: white; display: none" id="${areaTypeTrim}AreaType" />-->
+        # for (var i = 0; i < values.length; i++) { #
+        #var actionItemTrim = values[i].action_item.replace(/ /g,'_');#
+        <div id="${actionItemTrim}ActionItem" data-role="collapsible" class="header-actionItem">
+            <h3>
+                <span>
+                    ${values[i].action_item}
+                </span>
+                <!--<a data-role="button" class="km-button-right" style="float: right;position: absolute;right: 80px;top: 0;font-size: medium;  font-weight: normal; display: none" onclick="app.Activity.saveActionItem('${values[i].action_item}', this)" id="${actionItemTrim}ActionItemSaveButton">Save</a>-->
+                <a data-role="button" class="km-button-right" style="float: right;position: absolute;right: 80px;top: 0;font-size: medium;  font-weight: normal;" onclick="app.Activity.editActionItem('${values[i].action_item}', '${values[i].action_item_description}', this)" id="${actionItemTrim}ActionItemEditButton">Edit</a>
+                <a data-role="button" class="km-button-right" style="float: right;position: absolute;right: 0;top: 2px;    font-size: medium;  font-weight: normal;" onclick="app.Activity.deleteActionItem('${values[i].action_item}', this)">Delete</a>
+            </h3>
+            <p>${values[i].action_item_description != null ? values[i].action_item_description : '' }</p>
+
+            <!--<div style="display: none;min-height:100px" id="${actionItemTrim}ActionItemEditSection">
+                <p> <span>New name       :</span> <input type="text" style=" font-size: medium; font-weight: normal; width: 70%; background: white;border: 1px solid gray;" id="${actionItemTrim}ActionItemNewName" /></p>
+                <p> <span>New description:</span>  <textarea type="text" style=" font-size: medium; font-weight: normal; width: 70%; background: white;border: 1px solid gray;" id="${actionItemTrim}ActionItemNewDescription" /></p>
+            </div>
+            <div id="${actionItemTrim}ActionItemInfoSection">
+                <p>${values[i].action_item_description != null ? values[i].action_item_description : '' }</p>
+            </div>-->
+        </div>
+        # } #
     </div>
-    <a data-role="button" class="km-button-right" style="float: right;position: absolute;right: 0;top: 0;">Edit</a>
 
 </script>
 <script type="text/x-kendo-template" id="areaTypeDropHeaderTemplate">
@@ -65,4 +116,70 @@
     <input type="button" value="+" style="float: right;margin-right:10px" />
     <!--<span  style="float: right;margin-right:10px">+</span>-->
 
+</script>
+<!--Register Modal view-->
+<div data-role="modalview" id="modalview-editAreaType" style="width: 90%;">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Edit</span>
+            <a data-click="closeModalView" data-role="button" data-align="right">Close</a>
+        </div>
+    </div>
+
+    <p> <span>New name :</span> <input type="text" style=" font-size: medium; font-weight: normal; width: 70%; background: white;border: 1px solid gray;" id="nameAreaType" /></p>
+    <div data-role="footer">
+        <div data-role="navbar">
+            <a data-click="app.Activity.saveAreaType" type="button" data-role="button" data-align="right">OK</a>
+            <a data-click="closeModalView" type="button" data-role="button" data-align="right">Cancel</a>
+        </div>
+    </div>
+</div>
+<div data-role="modalview" id="modalview-editActionItem" style="width: 90%;">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Edit</span>
+            <a data-click="closeModalView" data-role="button" data-align="right">Close</a>
+        </div>
+    </div>
+    <p>
+        <span>New name       :</span> <input type="text" style="font-size: medium; font-weight: normal; width: 70%; background: white; border: 1px solid gray;" id="nameActionItem" />
+    </p>
+    <p>
+        <label for="descriptionActionItem" style="display: block">New description:</label>  <textarea type="text" style="font-size: medium; font-weight: normal; width: 82.5%; min-height: 100px; background: white; border: 1px solid gray;" id="descriptionActionItem"></textarea>
+    </p>
+    <div data-role="footer">
+        <div data-role="navbar">
+            <a data-click="app.Activity.saveActionItem" type="button" data-role="button" data-align="right">OK</a>
+            <a data-click="closeModalView" type="button" data-role="button" data-align="right">Cancel</a>
+        </div>
+    </div>
+</div>
+<div data-role="modalview" id="modalview-addActionItem" style="width: 90%;">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>Add Action Item</span>
+            <a data-click="closeModalView" data-role="button" data-align="right">Close</a>
+        </div>
+    </div>
+    <p>
+        <span>New name       :</span> <input type="text" style="font-size: medium; font-weight: normal; width: 70%; background: white; border: 1px solid gray;" id="nameNewActionItem" />
+    </p>
+    <p>
+        <label for="descriptionActionItem" style="display: block">New description:</label>  <textarea type="text" style="font-size: medium; font-weight: normal; width: 82.5%; min-height: 100px; background: white; border: 1px solid gray;" id="descriptionNewActionItem"></textarea>
+    </p>
+    <div data-role="footer">
+        <div data-role="navbar">
+            <a data-click="app.Activity.saveNewActionItem" type="button" data-role="button" data-align="right">OK</a>
+            <a data-click="closeModalView" type="button" data-role="button" data-align="right">Cancel</a>
+        </div>
+    </div>
+</div>
+<script>
+    function closeModalView() {
+        setTimeout(function () {
+            $("#modalview-editAreaType").kendoMobileModalView("close");
+            $("#modalview-editActionItem").kendoMobileModalView("close");
+            $("#modalview-addActionItem").kendoMobileModalView("close");
+        }, 500);
+    }
 </script>

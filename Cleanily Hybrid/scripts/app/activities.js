@@ -126,7 +126,7 @@ app.Activities = (function () {
 
         // Navigate to activityView When some activity is selected
         var activitySelected = function (addressId, customerId) {
-            
+
             app.mobileApp.navigate('views/activityView.html?addressId=' + addressId + '&customerId=' + customerId);
         };
         // Navigate to app home
@@ -137,6 +137,12 @@ app.Activities = (function () {
 
         // Logout user
         var logout = function () {
+
+            localStorage.removeItem("username");
+            localStorage.removeItem("password");
+            localStorage.removeItem("auth_token");
+            localStorage.removeItem("isLoginSuccessfully");
+            localStorage.clear();
 
             app.helper.logout()
             .then(navigateHome, function (err) {

@@ -1,17 +1,23 @@
 <div data-role="view" id="view-all-activities" data-layout="default" class="activities-view" data-model="app.Activities" data-show="app.Activities.show">
     <div data-role="header">
     </div>
-    <div  align="center" style="margin:5px">
-        <span style="font-weight: bold;font-size: x-large">Welcome to Cleanily app</span>
-        <a data-role="button" style="margin-right: 15px; float: right" class="km-primary" data-click="app.Activities.logout">Logout</a>
+    <a data-role="button" style="margin-right: 15px; margin-top: 10px;float: right" class="km-primary" data-click="app.Activities.logout">Logout</a>
+    <div align="center" style="margin-top: 50px; margin-bottom: 20px;">
+        <div class="logo"></div>
     </div>
-    <h3>Find a checklist:</h3>
-    <input type="search" name="" id="activities-search" placeholder="type the customer lastname or address line 1 to find a check list" style="margin-left: 16px;width: 70%;" />
-
+    <h2>To start editing, find a checklist:</h2>
+    <div class="checklist-search">
+        <span class="k-textbox k-space-left" style="width: 100%; margin-left: 20px; margin-bottom: 20px; margin-top: 20px; width: 70%; height 35px; color: #A6A6A6; font-size: 16px;">
+                    <input type="search" id="activities-search" placeholder="type the customer lastname or address line 1 to find a checklist"/>
+                    <a href="#" class="k-icon k-i-search" style="left: 14px">&nbsp;</a>
+                </span>
+    </div>
     <!--<ul id="activities-listview" data-style="inset" data-role="listview" data-template="activityTemplate" data-bind="source: activities"></ul>-->
     <ul id="activities-listview" data-style="inset" data-role="listview"></ul>
     <p id="no-activities-span" hidden="hidden" class="no-items-msg">
-        <b>You have no activity yet.</b><br><br>Tap on the Go! and create new checklist.
+        <b>You have no activity yet.</b>
+        <br>
+        <br>Tap on the Go! and create new checklist.
     </p>
     <p>
         <span style="font-size: larger">Create New Checklist</span>
@@ -27,9 +33,7 @@
             <a data-role="button" class="btn" style="padding: 0.8em!important">Go!</a>
         </span>
     </p>
-
 </div>
-
 <!-- Activities ListView Template -->
 <script type="text/x-kendo-template" id="activityTemplate">
     <div onclick="app.Activities.activitySelected(${address.id},${address.user.id})" class="activity-item">

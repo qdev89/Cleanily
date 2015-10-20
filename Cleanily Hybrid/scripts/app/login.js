@@ -51,8 +51,20 @@ app.Login = (function () {
         };
 
         var show = function () {
-            $loginUsername.val('edward@traditional-cleaning.com');
-            $loginPassword.val('firstadminuser');
+            if (localStorage["isLoginSuccessfully"] === "true") {
+                appSettings.api.user_email = localStorage["username"];
+                appSettings.api.auth_token = localStorage["auth_token"];
+                if (navigator.onLine) {
+                    app.mobileApp.navigate('views/activitiesView.html');
+                } else {
+                    // offline
+                    app.mobileApp.navigate('views/activityView.html');
+                }
+            } else {
+                // test
+                $loginUsername.val('edward@traditional-cleaning.com');
+                $loginPassword.val('firstadminuser');
+            }
         };
 
         // Authenticate to use Backend Services as a particular user
@@ -69,16 +81,20 @@ app.Login = (function () {
                         "password": password
                     }
                 };
-            app.mobileApp.showLoading();
+            app.showLoading();
             $.ajax({
                 url: appSettings.api.url + 'api/users/sign_in.json',
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                    app.mobileApp.hideLoading();
+                    app.hideLoading();
                     if (data.success) {
                         appSettings.api.user_email = data.user_email;
                         appSettings.api.auth_token = data.user_token;
+                        localStorage["username"] = username;
+                        localStorage["password"] = password;
+                        localStorage["auth_token"] = data.user_token;
+                        localStorage["isLoginSuccessfully"] = true;
                         app.mobileApp.navigate('views/activitiesView.html');
                     } else {
                         alert("Email or passwork is incorrect. Please try again.");

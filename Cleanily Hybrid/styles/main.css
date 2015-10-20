@@ -189,6 +189,8 @@ input[type='week'] {
     border: 2px solid #a1a1a1;
     padding: 10px 40px;
     border-radius: 25px;
+    background-color: #31c078;
+    color: white;
 }
 
 #cleanilyApp .signup-view .btn-signup,
